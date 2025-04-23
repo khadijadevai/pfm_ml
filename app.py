@@ -32,6 +32,7 @@ def get_base64_image(image_path):
         return base64.b64encode(f.read()).decode()
 
 bg_base64 = get_base64_image("bg.jpg")
+logo_base64 = get_base64_image("logo.png")
 
 st.set_page_config(page_title="Prédicteur Avito", layout="wide")
 
@@ -43,7 +44,7 @@ translations = {
         "predict_tab": "Prédiction",
         "similar_tab": "Annonces Similaires",
         "history_tab": "Historique",
-        "submit_button": "🎯 Prédire le prix",
+        "submit_button": " Prédire le prix",
         "estimated_price": "💰 **Prix estimé : {price} DH**",
         "download_label": "📅 Télécharger le rapport complet (CSV)",
         "see_similar_first": "Veuillez d'abord effectuer une prédiction pour voir les annonces similaires.",
@@ -69,7 +70,7 @@ translations = {
         "predict_tab": "Prediction",
         "similar_tab": "Similar Listings",
         "history_tab": "History",
-        "submit_button": "🎯 Predict Price",
+        "submit_button": " Predict Price",
         "estimated_price": "💰 **Estimated Price: {price} DH**",
         "download_label": "📅 Download full report (CSV)",
         "see_similar_first": "Please make a prediction first to see similar listings.",
@@ -95,7 +96,7 @@ translations = {
         "predict_tab": "التقدير",
         "similar_tab": "إعلانات مشابهة",
         "history_tab": "السجل",
-        "submit_button": "🎯 تقدير السعر",
+        "submit_button": " تقدير السعر",
         "estimated_price": "💰 **السعر المقدر: {price} درهم**",
         "download_label": "📅 تحميل التقرير الكامل (CSV)",
         "see_similar_first": "يرجى إجراء تقدير أولاً لعرض الإعلانات المشابهة.",
@@ -138,6 +139,8 @@ st.markdown(f"""
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 100px;
+    
 }}
 .stTabs [role="tab"] {{
     background-color: #9f2929;
@@ -165,13 +168,62 @@ st.markdown(f"""
 .st-emotion-cache-k2z1pe{{ 
     background-color: rgb(0 0 0 / 55%);
 }}
+.st-emotion-cache-t1wise{{ 
+    padding: 1rem 1rem 10rem !important;
+}}
+
+.logo-container {{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    z-index: 1000;
+}}
+.logo-container img {{
+    width: 170px;
+    height: auto;
+}}
+@media (max-width: 768px) {{
+    .logo-container {{
+        position: absolute;
+        top: 10px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }}
+    .logo-container img {{
+        width: 140px;
+        height: auto;
+    }}
+    
+    .title {{
+        font-size: 25px;
+    }}
+}}
+
 </style>
 """, unsafe_allow_html=True)
+# ajout logo au favicon
+st.markdown(
+    f"""
+    <link rel="shortcut icon" href="data:image/png;base64,{logo_base64} " type="image/png" sizes="16x16">
+    """,
+    unsafe_allow_html=True
+)
+# ajouter logo en haut à droite
+st.markdown(
+    f"""
+    <div class="logo-container">
+        <img src="data:image/png;base64,{logo_base64}" alt="Logo" />
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+# titre de l'application
 st.markdown(f'<div class="title">{translations[langue]["title"]}</div>', unsafe_allow_html=True)
 
-
-# Fonctionnalités préservées : fonctions existantes de prétraitement, prédiction, etc.
-# ... (les fonctions comme preprocess_input, faire_prediction, construire_url_avito sont inchangées)
 
 def extraire_km_moyen(km_str):
     km_str = str(km_str) 
@@ -354,10 +406,13 @@ def construire_url_avito(entree):
 
     return f"{base_url}?{query_string}"
 # Interface onglets
+
 onglet = st.tabs([
     translations[langue]["predict_tab"],
     translations[langue]["similar_tab"],
-    translations[langue]["history_tab"]
+    translations[langue]["history_tab"],
+    
+    
 ])
 
 

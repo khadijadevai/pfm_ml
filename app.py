@@ -7,11 +7,27 @@ import os
 import base64
 import re
 import urllib.parse
+import gdown
+# Chargement du modèle
+
+# ID du fichier sur Google Drive
+file_id = '1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw'
+url = f'https://drive.google.com/uc?id={file_id}'
+output = 'model2.cbm'
+
+# Vérifie si le modèle existe déjà en local
+if not os.path.exists(output):
+    with st.spinner('Téléchargement du modèle...'):
+        try:
+            gdown.download(url, output, quiet=False)
+        except Exception as e:
+            st.error(f"Échec du téléchargement du modèle : {e}")
+            st.stop()
 
 # Chargement du modèle
 model = CatBoostRegressor()
 try:
-    model.load_model("model2.cbm")
+    model.load_model(output)
 except Exception as e:
     st.error(f"Erreur lors du chargement du modèle : {e}")
     st.stop()
@@ -34,89 +50,6 @@ def get_base64_image(image_path):
 bg_base64 = get_base64_image("bg.jpg")
 
 st.set_page_config(page_title="Prédicteur Avito", layout="wide")
-
-langue = st.sidebar.selectbox("🌐 Choisir la langue", ["Français", "English", "العربية"])
-translations = {
-    "Français": {
-        "title": "Prédiction du Prix des Voitures d'Occasion",
-        "form_info": "Remplis le formulaire ci-dessous pour obtenir une estimation basée sur les données Avito.",
-        "predict_tab": "Prédiction",
-        "similar_tab": "Annonces Similaires",
-        "history_tab": "Historique",
-        "submit_button": "🎯 Prédire le prix",
-        "estimated_price": "💰 **Prix estimé : {price} DH**",
-        "download_label": "📅 Télécharger le rapport complet (CSV)",
-        "see_similar_first": "Veuillez d'abord effectuer une prédiction pour voir les annonces similaires.",
-        "Marque": "Marque",
-        "Modèle": "Modèle",
-        "Secteur": "Secteur",
-        "Année": "Année",
-        "Kilométrage": "Kilométrage",
-        "Puissance Fiscale": "Puissance Fiscale",
-        "Nombre de portes": "Nombre de portes",
-        "Première main": "Première main",
-        "Origine": "Origine",
-        "État": "État",
-        "Boîte de vitesses": "Boîte de vitesses",
-        "Carburant": "Carburant",
-        "Annonces Similaires sur Avito": "### Annonces Similaires sur Avito",
-        "Historique des Prédictions": "### Historique des Prédictions",
-        "Télécharger le rapport complet (CSV)": " Télécharger le rapport complet (CSV)",
-    },
-    "English": {
-        "title": "Used Car Price Prediction",
-        "form_info": "Fill in the form below to get an estimate based on Avito data.",
-        "predict_tab": "Prediction",
-        "similar_tab": "Similar Listings",
-        "history_tab": "History",
-        "submit_button": "🎯 Predict Price",
-        "estimated_price": "💰 **Estimated Price: {price} DH**",
-        "download_label": "📅 Download full report (CSV)",
-        "see_similar_first": "Please make a prediction first to see similar listings.",
-        "Marque": "Brand",
-        "Modèle": "Model",
-        "Secteur": "Sector",
-        "Année": "Year",
-        "Kilométrage": "Mileage",
-        "Puissance Fiscale": "Fiscal Power",
-        "Nombre de portes": "Number of Doors",
-        "Première main": "First Owner",
-        "Origine": "Origin",
-        "État": "Condition",
-        "Boîte de vitesses": "Gearbox",
-        "Carburant": "Fuel",
-        "Annonces Similaires sur Avito": "### Similar Listings on Avito",
-        "Historique des Prédictions": "### Prediction History",
-        "Télécharger le rapport complet (CSV)": " Download full report (CSV)",
-    },
-    "العربية": {
-        "title": "تقدير سعر السيارات المستعملة",
-        "form_info": "املأ النموذج أدناه للحصول على تقدير بناءً على بيانات Avito.",
-        "predict_tab": "التقدير",
-        "similar_tab": "إعلانات مشابهة",
-        "history_tab": "السجل",
-        "submit_button": "🎯 تقدير السعر",
-        "estimated_price": "💰 **السعر المقدر: {price} درهم**",
-        "download_label": "📅 تحميل التقرير الكامل (CSV)",
-        "see_similar_first": "يرجى إجراء تقدير أولاً لعرض الإعلانات المشابهة.",
-        "Marque": "العلامة التجارية",
-        "Modèle": "النموذج",
-        "Secteur": "القطاع",
-        "Année": "السنة",
-        "Kilométrage": "المسافة المقطوعة",
-        "Puissance Fiscale": "القدرة الضريبية",
-        "Nombre de portes": "عدد الأبواب",
-        "Première main": "المالك الأول",
-        "Origine": "المنشأ",
-        "État": "الحالة",
-        "Boîte de vitesses": "ناقل الحركة",
-        "Carburant": "الوقود",
-        "Annonces Similaires sur Avito": "### إعلانات مشابهة على Avito",
-        "Historique des Prédictions": "### سجل التنبؤات",
-        "Télécharger le rapport complet (CSV)": "تحميل التقرير الكامل (CSV)",
-    }
-}
-
 
 st.markdown(f"""
 <style>
@@ -161,14 +94,10 @@ st.markdown(f"""
 
     display: none;
     }}
-    
-.st-emotion-cache-k2z1pe{{ 
-    background-color: rgb(0 0 0 / 55%);
-}}
 </style>
 """, unsafe_allow_html=True)
-st.markdown(f'<div class="title">{translations[langue]["title"]}</div>', unsafe_allow_html=True)
 
+st.markdown('<div class="title">Prédiction du Prix des Voitures d\'Occasion</div>', unsafe_allow_html=True)
 
 # Fonctionnalités préservées : fonctions existantes de prétraitement, prédiction, etc.
 # ... (les fonctions comme preprocess_input, faire_prediction, construire_url_avito sont inchangées)
@@ -354,39 +283,32 @@ def construire_url_avito(entree):
 
     return f"{base_url}?{query_string}"
 # Interface onglets
-onglet = st.tabs([
-    translations[langue]["predict_tab"],
-    translations[langue]["similar_tab"],
-    translations[langue]["history_tab"]
-])
-
+onglet = st.tabs(["Prédiction", "Annonces Similaires", "Historique"])
 
 with onglet[0]:
-    st.markdown(f"**{translations[langue]['form_info']}**")
-
+    st.markdown("**Remplis le formulaire ci-dessous pour obtenir une estimation basée sur les données Avito.**")
     with st.form("formulaire"):
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            marque = st.selectbox(translations[langue]["Marque"], sorted(df_ref["marque"].unique()))
-            modele = st.text_input(translations[langue]["Modèle"], "Logan")
-            secteur = st.selectbox(translations[langue]["Secteur"], sorted(df_ref["secteur"].unique()))
-            annee = st.number_input(translations[langue]["Année"], min_value=1990, max_value=datetime.datetime.now().year, value=2018)
+            marque = st.selectbox("Marque", sorted(df_ref["marque"].unique()))
+            modele = st.text_input("Modèle", "Logan")
+            secteur = st.selectbox("Secteur", sorted(df_ref["secteur"].unique()))
+            annee = st.number_input("Année", min_value=1990, max_value=datetime.datetime.now().year, value=2018)
 
         with col2:
-            kilometrage = st.number_input(translations[langue]["Kilométrage"], min_value=0, max_value=500000, value=100000)
-            puissance_fiscale = st.number_input(translations[langue]["Puissance Fiscale"], min_value=2, max_value=50, value=6)
-            nb_portes = st.selectbox(translations[langue]["Nombre de portes"], sorted(df_ref["nbr de portes"].unique()))
-            premiere_main = st.selectbox(translations[langue]["Première main"], ["Oui", "Non"])
+            kilometrage = st.number_input("Kilométrage", min_value=0, max_value=500000, value=100000)
+            puissance_fiscale = st.number_input("Puissance Fiscale", min_value=2, max_value=50, value=6)
+            nb_portes = st.selectbox("Nombre de portes", sorted(df_ref["nbr de portes"].unique()))
+            premiere_main = st.selectbox("Première main", ["Oui", "Non"])
 
         with col3:
-            origine = st.selectbox(translations[langue]["Origine"], sorted(df_ref["origine"].unique()))
-            etat = st.selectbox(translations[langue]["État"], sorted(df_ref["état"].unique()))
-            boite = st.selectbox(translations[langue]["Boîte de vitesses"], sorted(df_ref["Boite"].unique()))
-            carburant = st.selectbox(translations[langue]["Carburant"], sorted(df_ref["Carburant"].unique()))
+            origine = st.selectbox("Origine", sorted(df_ref["origine"].unique()))
+            etat = st.selectbox("État", sorted(df_ref["état"].unique()))
+            boite = st.selectbox("Boîte de vitesses", sorted(df_ref["Boite"].unique()))
+            carburant = st.selectbox("Carburant", sorted(df_ref["Carburant"].unique()))
 
-        
-        submitted = st.form_submit_button(translations[langue]["submit_button"])
+        submitted = st.form_submit_button("🎯 Prédire le prix")
 
         if submitted:
             entree = {
@@ -404,8 +326,7 @@ with onglet[0]:
                 "Carburant": carburant,
             }
             prediction = faire_prediction(entree)
-            st.success(translations[langue]["estimated_price"].format(price=format(int(prediction), ',').replace(',', ' ')))
-
+            st.success(f"💰 **Prix estimé : {format(int(prediction), ',').replace(',', ' ')} DH**")
 
             donnees_finales = preprocess_input(entree)
             donnees_finales["prediction"] = int(prediction)
@@ -416,21 +337,21 @@ with onglet[0]:
             historique_df.to_csv(HISTORIQUE_PATH, index=False)
 
 with onglet[1]:
-    st.markdown( translations[langue]["Annonces Similaires sur Avito"])
+    st.markdown("### 📍 Annonces Similaires sur Avito")
     if 'entree' in locals():
         url_avito = construire_url_avito(entree)
         st.components.v1.iframe(url_avito, height=600, scrolling=True)
     else:
-        st.info(translations[langue]["see_similar_first"])
+        st.info("Veuillez d'abord effectuer une prédiction pour voir les annonces similaires.")
 
 with onglet[2]:
-    st.markdown( translations[langue]["Historique des Prédictions"])
+    st.markdown("### 📄 Historique des Prédictions")
     historique_df = pd.read_csv(HISTORIQUE_PATH)
     st.dataframe(historique_df.sort_values(by="timestamp", ascending=False).head(20), use_container_width=True)
 
     csv_export = historique_df.to_csv(index=False).encode("utf-8")
     st.download_button(
-        label= translations[langue]["Télécharger le rapport complet (CSV)"],
+        label="📅 Télécharger le rapport complet (CSV)",
         data=csv_export,
         file_name="rapport_predictions.csv",
         mime="text/csv"

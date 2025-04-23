@@ -10,8 +10,10 @@ import urllib.parse
 import gdown
 # Chargement du modèle
 
-# ID du fichier sur Google Drive
-url = 'https://drive.google.com/file/d/1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw/view?usp=drive_link'
+# ID du fichier Drive (extrait du lien partagé)
+file_id = '1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw'
+url = f'https://drive.google.com/uc?id={file_id}'
+
 output = 'model2.cbm'
 
 # Vérifie si le modèle existe déjà en local
@@ -30,7 +32,6 @@ try:
 except Exception as e:
     st.error(f"Erreur lors du chargement du modèle : {e}")
     st.stop()
-
 # Données de référence
 df_ref = pd.read_csv("data_final.csv")
 cat_features = ['Boite', 'Carburant', 'secteur', 'marque', 'model', 'origine', 'premiére main', 'état', 'km_binned']

@@ -34,7 +34,7 @@ except Exception as e:
     st.error(f"Erreur lors du chargement du modèle : {e}")
     st.stop()
 # Données de référence
-df_ref = pd.read_csv("data_final.csv")
+df_ref = pd.read_csv("data_final2.csv")
 cat_features = ['Boite', 'Carburant', 'secteur', 'marque', 'model', 'origine', 'premiére main', 'état', 'km_binned']
 
 # Chemin de l'historique

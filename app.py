@@ -7,22 +7,23 @@ import os
 import base64
 import re
 import urllib.parse
-import gdown
-# Chargement du modèle
+import requests
 
-# ID du fichier Drive (extrait du lien partagé)
-file_id = '1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw'
-url = f'https://drive.google.com/uc?id={file_id}'
+# ID du fichier Google Drive
+file_id = "1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw"
+url = f"https://drive.google.com/uc?export=download&id={file_id}"
+output = "model2.cbm"
 
-output = 'model2.cbm'
-
-# Vérifie si le modèle existe déjà en local
+# Télécharger le fichier si non présent localement
 if not os.path.exists(output):
-    with st.spinner('Téléchargement du modèle...'):
+    with st.spinner("Téléchargement du modèle..."):
         try:
-            gdown.download(url, output, quiet=False)
+            response = requests.get(url)
+            response.raise_for_status()
+            with open(output, "wb") as f:
+                f.write(response.content)
         except Exception as e:
-            st.error(f"Échec du téléchargement du modèle : {e}")
+            st.error(f"Erreur de téléchargement : {e}")
             st.stop()
 
 # Chargement du modèle

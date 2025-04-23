@@ -11,8 +11,7 @@ import gdown
 # Chargement du modèle
 
 # ID du fichier sur Google Drive
-file_id = '1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw'
-url = f'https://drive.google.com/uc?id={file_id}'
+url = 'https://drive.google.com/file/d/1NmJ4BUykN0nlJtLQnp_iqfTRapDNNMtw/view?usp=drive_link'
 output = 'model2.cbm'
 
 # Vérifie si le modèle existe déjà en local

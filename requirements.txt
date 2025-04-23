@@ -3,4 +3,4 @@ pandas
 streamlit==1.44.1
 gdown
 requests
-catboost==0.15
+catboost==0.18.1

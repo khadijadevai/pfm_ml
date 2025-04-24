@@ -127,6 +127,20 @@ st.markdown(f"""
     background-position: center;
     background-attachment: fixed;
 }}
+.st-emotion-cache-12fmjuu {{
+        background: rgb(255 255 255 / 0%);
+
+}}
+.st-emotion-cache-r90ti5{{ 
+    background-color: rgb(0 0 0 / 38%);
+
+}}
+.st-emotion-cache-16tyu1 {{
+    color: rgb(255 255 255);
+}}
+.st-emotion-cache-br351g {{
+    color: rgb(255 255 255);
+}}
 .main {{
     background-color: rgba(0, 0, 0, 0.65);
     padding: 2rem;
@@ -134,7 +148,7 @@ st.markdown(f"""
     color: white;
 }}
 .title {{
-    color: #9f2929;
+    color: #000000;
     font-size: 40px;
     font-weight: bold;
     text-align: center;
@@ -149,9 +163,21 @@ st.markdown(f"""
     border-radius: 10px 10px 0 0;
 }}
 .stTabs [role="tab"][aria-selected="true"] {{
-    background-color: #ffffff;
+    background-color: #000000;
     color: #9f2929;
 }}
+.st-emotion-cache-ocsh0s{{ 
+    background-color: #9f2929;
+    color: white;
+}}
+.st-es {{
+        background-color: rgb(255 255 255 / 18%) ;
+
+}}
+.st-emotion-cache-1xulwhk {{
+    color: rgb(255 255 255);
+}}
+
 .stButton>button, .stDownloadButton>button {{
     background-color: #9f2929;
     color: white;
@@ -295,93 +321,93 @@ def construire_url_avito(entree):
         "ufo": 57, "zotye": 60
     }
 
-    def convertir_kilometrage(km):
-        if km < 0:
-            raise ValueError("Le kilométrage ne peut pas être négatif")
-        elif km < 5000:
-            return 0
-        elif km < 10000:
-            return 1
-        elif km < 15000:
-            return 2
-        elif km < 20000:
-            return 3
-        elif km < 25000:
-            return 4
-        elif km < 30000:
-            return 5
-        elif km < 35000:
-            return 6
-        elif km < 40000:
-            return 7
-        elif km < 45000:
-            return 8
-        elif km < 50000:
-            return 9
-        elif km < 55000:
-            return 10
-        elif km < 60000:
-            return 11
-        elif km < 65000:
-            return 12
-        elif km < 70000:
-            return 13
-        elif km < 75000:
-            return 14
-        elif km < 80000:
-            return 15
-        elif km < 85000:
-            return 16
-        elif km < 90000:
-            return 17
-        elif km < 95000:
-            return 18
-        elif km < 100000:
-            return 19
-        elif km < 105000:
-            return 20
-        elif km < 110000:
-            return 21
-        elif km < 115000:
-            return 22
-        elif km < 120000:
-            return 23
-        elif km < 125000:
-            return 24
-        elif km < 130000:
-            return 25
-        elif km < 135000:
-            return 26
-        elif km < 140000:
-            return 27
-        elif km < 145000:
-            return 28
-        elif km < 150000:
-            return 29
-        elif km < 200000:
-            return 30
-        elif km < 250000:
-            return 31
-        elif km < 300000:
-            return 32
-        elif km < 350000:
-            return 33
-        elif km < 400000:
-            return 34
-        elif km < 450000:
-            return 35
-        elif km < 500000:
-            return 36
-        elif km < 550000:
-            return 37
-        elif km < 600000:
-            return 38
-        elif km < 650000:
-            return 39
-        elif km < 700000:
-            return 40
-        else:
-            return 41  # pour 700000 km et plus
+    # def convertir_kilometrage(km):
+    #     if km < 0:
+    #         raise ValueError("Le kilométrage ne peut pas être négatif")
+    #     elif km < 5000:
+    #         return 0
+    #     elif km < 10000:
+    #         return 1
+    #     elif km < 15000:
+    #         return 2
+    #     elif km < 20000:
+    #         return 3
+    #     elif km < 25000:
+    #         return 4
+    #     elif km < 30000:
+    #         return 5
+    #     elif km < 35000:
+    #         return 6
+    #     elif km < 40000:
+    #         return 7
+    #     elif km < 45000:
+    #         return 8
+    #     elif km < 50000:
+    #         return 9
+    #     elif km < 55000:
+    #         return 10
+    #     elif km < 60000:
+    #         return 11
+    #     elif km < 65000:
+    #         return 12
+    #     elif km < 70000:
+    #         return 13
+    #     elif km < 75000:
+    #         return 14
+    #     elif km < 80000:
+    #         return 15
+    #     elif km < 85000:
+    #         return 16
+    #     elif km < 90000:
+    #         return 17
+    #     elif km < 95000:
+    #         return 18
+    #     elif km < 100000:
+    #         return 19
+    #     elif km < 105000:
+    #         return 20
+    #     elif km < 110000:
+    #         return 21
+    #     elif km < 115000:
+    #         return 22
+    #     elif km < 120000:
+    #         return 23
+    #     elif km < 125000:
+    #         return 24
+    #     elif km < 130000:
+    #         return 25
+    #     elif km < 135000:
+    #         return 26
+    #     elif km < 140000:
+    #         return 27
+    #     elif km < 145000:
+    #         return 28
+    #     elif km < 150000:
+    #         return 29
+    #     elif km < 200000:
+    #         return 30
+    #     elif km < 250000:
+    #         return 31
+    #     elif km < 300000:
+    #         return 32
+    #     elif km < 350000:
+    #         return 33
+    #     elif km < 400000:
+    #         return 34
+    #     elif km < 450000:
+    #         return 35
+    #     elif km < 500000:
+    #         return 36
+    #     elif km < 550000:
+    #         return 37
+    #     elif km < 600000:
+    #         return 38
+    #     elif km < 650000:
+    #         return 39
+    #     elif km < 700000:
+    #         return 40
+    #     else:
+    #         return 41  # pour 700000 km et plus
 
 
     params = {
@@ -389,7 +415,7 @@ def construire_url_avito(entree):
         "model": str(entree["model"]).replace(" ", "").lower(),
         "fuel": 1 if entree["Carburant"] == "Diesel" else 2 if entree["Carburant"] == "Essence" else 3 if entree["Carburant"] == "Électrique" else 4 if entree["Carburant"] == "LPG" else 5,
         "regdate": f"{entree['Année']}-{entree['Année'] + 2}",
-        "mileage": convertir_kilometrage(entree["kilometrage"]),
+        # "mileage": convertir_kilometrage(entree["kilometrage"]),
         # "pfiscale": f"{entree['puissance fiscale']-1}-{entree['puissance fiscale']+1}",
         "bv": 0 if str.lower(entree["Boite"]) == "automatique" else 1,
         "first_owner": 0 if entree["premiére main"] == "Oui" else 1,

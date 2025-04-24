@@ -418,15 +418,21 @@ onglet = st.tabs([
 
 with onglet[0]:
     st.markdown(f"**{translations[langue]['form_info']}**")
+    col1, col2, col3 = st.columns(3)
+    
+    with col2:
+        marque = st.selectbox(translations[langue]["Marque"], sorted(df_ref["marque"].unique()))
+        modeles_disponibles = sorted(df_ref[df_ref["marque"] == marque]["model"].unique())
 
     with st.form("formulaire"):
         col1, col2, col3 = st.columns(3)
-
         with col1:
-            marque = st.selectbox(translations[langue]["Marque"], sorted(df_ref["marque"].unique()))
-            modele = st.text_input(translations[langue]["Modèle"], "Logan")
+            # Affichage du champ modèle mis à jour dynamiquement
+            modele = st.selectbox(translations[langue]["Modèle"], modeles_disponibles)
             secteur = st.selectbox(translations[langue]["Secteur"], sorted(df_ref["secteur"].unique()))
             annee = st.number_input(translations[langue]["Année"], min_value=1990, max_value=datetime.datetime.now().year, value=2018)
+            carburant = st.selectbox(translations[langue]["Carburant"], sorted(df_ref["Carburant"].unique()))
+
 
         with col2:
             kilometrage = st.number_input(translations[langue]["Kilométrage"], min_value=0, max_value=500000, value=100000)
@@ -438,7 +444,6 @@ with onglet[0]:
             origine = st.selectbox(translations[langue]["Origine"], sorted(df_ref["origine"].unique()))
             etat = st.selectbox(translations[langue]["État"], sorted(df_ref["état"].unique()))
             boite = st.selectbox(translations[langue]["Boîte de vitesses"], sorted(df_ref["Boite"].unique()))
-            carburant = st.selectbox(translations[langue]["Carburant"], sorted(df_ref["Carburant"].unique()))
 
         
         submitted = st.form_submit_button(translations[langue]["submit_button"])

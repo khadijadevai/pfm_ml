@@ -1,1 +1,3 @@
 Année,Boite,Carburant,secteur,kilometrage,marque,model,nbr de portes,origine,premiére main,puissance fiscale,état,km_min,km_max,km_moyen,km_binned,prediction,timestamp
+2021,Manuelle,Diesel,"Yacoub El Mansour, Rabat",,RENAULT,Clio,5.0,WW au Maroc,Non,6,Très bon,,,75000,50k-100k,133895,2025-04-24 15:06:41
+2021,Manuelle,Diesel,"Yacoub El Mansour, Rabat",,RENAULT,Clio,5.0,WW au Maroc,Non,6,Très bon,,,75000,50k-100k,133895,2025-04-24 15:08:17

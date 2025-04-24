@@ -170,7 +170,7 @@ st.markdown(f"""
     background-color: #9f2929;
     color: white;
 }}
-.st-es {{
+.st-es , .st-eu , .st-ey {{
         background-color: rgb(255 255 255 / 18%) ;
 
 }}
